@@ -12,10 +12,14 @@ slot_pre_install() {
     old_cmdline="$(cat "$RAUC_SLOT_MOUNT_POINT/cmdline.txt")"
     new_cmdline="$(printf '%s\n' "$old_cmdline" | sed -E 's#(^| )root=[^ ]+# root='"$RAUC_SLOT_DEVICE"'#')"
 
-    # If there was no root= entry, append one
     case "$new_cmdline" in
         *"root="*) ;;
         *) new_cmdline="$new_cmdline root=$RAUC_SLOT_DEVICE" ;;
+    esac
+
+    case "$new_cmdline" in
+        *"rauc.slot="*) ;;
+        *) new_cmdline="$new_cmdline rauc.slot=$RAUC_SLOT_BOOTNAME" ;;
     esac
 
     printf '%s\n' "$new_cmdline" >"$RUNTIME_DIRECTORY/cmdline.txt"

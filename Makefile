@@ -17,18 +17,13 @@ install:
 	unitdir=$${SYSTEMDSYSTEMUNITDIR:-$$(pkg-config --define-variable=prefix=$(PREFIX) \
 						       --variable=systemdsystemunitdir \
 						       systemd 2>/dev/null)}; \
-	if [ -n "$$unitdir" ]; then \
-		install -D -m 644 rauc-mark-good.service $(DESTDIR)$$unitdir/rauc-mark-good.service; \
-	fi
 
 .PHONY: uninstall
 uninstall:
 	unitdir=$${SYSTEMDSYSTEMUNITDIR:-$$(pkg-config --define-variable=prefix=$(PREFIX) \
 						       --variable=systemdsystemunitdir \
 						       systemd 2>/dev/null)}; \
-	if [ -n "$$unitdir" ]; then \
-		rm -f $(DESTDIR)$$unitdir/rauc-mark-good.service; \
-	fi
+
 	rm -f $(DESTDIR)$(PREFIX)/lib/raspberrypi-firmware-rauc-bootloader-backend/bootloader-custom/backend
 	rm -f $(DESTDIR)$(PREFIX)/lib/raspberrypi-firmware-rauc-bootloader-backend/system-info
 
