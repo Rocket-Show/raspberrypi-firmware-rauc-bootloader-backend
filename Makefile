@@ -14,16 +14,9 @@ all: check
 install:
 	install -D -m 755 system-info $(DESTDIR)$(PREFIX)/lib/raspberrypi-firmware-rauc-bootloader-backend/system-info
 	install -D -m 755 bootloader-custom-backend $(DESTDIR)$(PREFIX)/lib/raspberrypi-firmware-rauc-bootloader-backend/bootloader-custom-backend
-	unitdir=$${SYSTEMDSYSTEMUNITDIR:-$$(pkg-config --define-variable=prefix=$(PREFIX) \
-						       --variable=systemdsystemunitdir \
-						       systemd 2>/dev/null)}; \
 
 .PHONY: uninstall
 uninstall:
-	unitdir=$${SYSTEMDSYSTEMUNITDIR:-$$(pkg-config --define-variable=prefix=$(PREFIX) \
-						       --variable=systemdsystemunitdir \
-						       systemd 2>/dev/null)}; \
-
 	rm -f $(DESTDIR)$(PREFIX)/lib/raspberrypi-firmware-rauc-bootloader-backend/bootloader-custom/backend
 	rm -f $(DESTDIR)$(PREFIX)/lib/raspberrypi-firmware-rauc-bootloader-backend/system-info
 
