@@ -274,7 +274,7 @@ later version.
 [fdtget]: https://git.kernel.org/pub/scm/utils/dtc/dtc.git/tree/fdtget.c
 [fstab(5)]: https://linux.die.net/man/5/fstab
 [handlers]: https://rauc.readthedocs.io/en/latest/using.html#system-based-customization-handlers
-[hook.bash]: support/hook.bash
+[hook.bash]: support/rauc_hook.bash
 [hook]: https://rauc.readthedocs.io/en/latest/using.html#bundle-based-customization-hooks
 [linux]: https://github.com/raspberrypi/linux/commit/777a6a08bcf8f5f0a0086358dc66d8918a0e1c57#diff-1c6051b88ea21684666367f31afc5452e51abc9fe5f340281cd9d38459ac3d35R224-R225
 [mailbox property interface]: https://github.com/raspberrypi/firmware/wiki/Mailbox-property-interface
