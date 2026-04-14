@@ -6,23 +6,18 @@
 # SPDX-License-Identifier: LGPL-2.1-only
 #
 
-set -e
+set -Eeuxo pipefail
+trap 'rc=$?; echo "HOOK FAILED: rc=$rc at line $LINENO: $BASH_COMMAND" >&2' ERR
+
+echo "arg=$1" >&2
+echo "RAUC_SLOT_MOUNT_POINT=$RAUC_SLOT_MOUNT_POINT" >&2
+echo "RAUC_SLOT_DEVICE=$RAUC_SLOT_DEVICE" >&2
+echo "RAUC_SLOT_BOOTNAME=$RAUC_SLOT_BOOTNAME" >&2
+echo "RUNTIME_DIRECTORY=$RUNTIME_DIRECTORY" >&2
+ls -la "$RAUC_SLOT_MOUNT_POINT" >&2 || true
 
 slot_pre_install() {
-    old_cmdline="$(cat "$RAUC_SLOT_MOUNT_POINT/cmdline.txt")"
-    new_cmdline="$(printf '%s\n' "$old_cmdline" | sed -E 's#(^| )root=[^ ]+# root='"$RAUC_SLOT_DEVICE"'#')"
-
-    case "$new_cmdline" in
-        *"root="*) ;;
-        *) new_cmdline="$new_cmdline root=$RAUC_SLOT_DEVICE" ;;
-    esac
-
-    case "$new_cmdline" in
-        *"rauc.slot="*) ;;
-        *) new_cmdline="$new_cmdline rauc.slot=$RAUC_SLOT_BOOTNAME" ;;
-    esac
-
-    printf '%s\n' "$new_cmdline" >"$RUNTIME_DIRECTORY/cmdline.txt"
+    echo "root=$RAUC_SLOT_DEVICE rauc.slot=$RAUC_SLOT_BOOTNAME console=tty1 console=serial0" >"$RUNTIME_DIRECTORY/cmdline.txt"
 }
 
 slot_post_install() {
