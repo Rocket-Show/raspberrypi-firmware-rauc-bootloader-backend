@@ -67,7 +67,7 @@ slot_post_install() {
             rootfs_dev="$(rootfs_device_for_bootfs_slot "$RAUC_SLOT_NAME")"
             root_partuuid="$(partuuid_of "$rootfs_dev")"
 
-            printf 'root=PARTUUID=%s rootfstype=ext4 rauc.slot=%s ro rootwait console=tty1 console=serial0\n' \
+            printf 'root=PARTUUID=%s rootfstype=ext4 rauc.slot=%s ro rootwait console=serial0,115200 console=tty1\n' \
                 "$root_partuuid" "${RAUC_SLOT_BOOTNAME}" \
                 >"$RAUC_SLOT_MOUNT_POINT/cmdline.txt.tmp"
             mv "$RAUC_SLOT_MOUNT_POINT/cmdline.txt.tmp" \
